@@ -17,21 +17,21 @@ type GroupieTracker struct {
 }
 
 type Artists struct {
-	Id           int      `json:"id"`
+	ID           int      `json:"id"`
 	Image        string   `json:"image"`
 	Name         string   `json:"name"`
 	Members      []string `json:"members"`
 	CreationDate int      `json:"creationDate"`
 	FirstAlbum   string   `json:"firstAlbum"`
-	// Locations    string	   `json:"locations"`
-	// ConcertDates string	   `json:"concertDates"`
-	// Relations    string	   `json:"relations"`
+}
+
+type IndexStruct struct {
+	Index []Locations `json:"index"`
 }
 
 type Locations struct {
-	Index int      `json:"index"`
-	Id    int      `json:"id"`
-	Loc   []string `json:"locations"`
+	ID  int      `json:"id"`
+	Loc []string `json:"locations"`
 }
 
 // type Dates struct {
@@ -45,7 +45,7 @@ type Locations struct {
 // }
 
 func main() {
-	var groupieTrackerObject GroupieTracker
+	var groupieTrackerObject GroupieTracker // Storing the struct into a variable so that it can be used
 
 	response, err := http.Get("https://groupietrackers.herokuapp.com/api")
 	if err != nil {
@@ -59,6 +59,7 @@ func main() {
 	}
 	fmt.Println(string(responseData))
 	json.Unmarshal(responseData, &groupieTrackerObject)
+
 	fmt.Println(groupieTrackerObject.ArtistsUrl)
 	fmt.Println(groupieTrackerObject.LocationsUrl)
 	fmt.Println(groupieTrackerObject.DatesUrl)
@@ -78,17 +79,15 @@ func main() {
 	}
 	fmt.Println(string(responseData1))
 	json.Unmarshal(responseData1, &artistsObject)
-	fmt.Println(artistsObject[0].Id)
+
+	fmt.Println(artistsObject[0].ID)
 	fmt.Println(artistsObject[0].Image)
 	fmt.Println(artistsObject[0].Name)
 	fmt.Println(artistsObject[0].Members)
 	fmt.Println(artistsObject[0].CreationDate)
 	fmt.Println(artistsObject[0].FirstAlbum)
-	// fmt.Println(artistsObject[0].Locations)
-	// fmt.Println(artistsObject[0].ConcertDates)
-	// fmt.Println(artistsObject[0].Relations)
 
-	var locationsObject []Locations
+	var locationsObject IndexStruct
 
 	response2, err := http.Get("https://groupietrackers.herokuapp.com/api/locations")
 	if err != nil {
@@ -103,12 +102,13 @@ func main() {
 	fmt.Println(string(responseData2))
 	json.Unmarshal(responseData2, &locationsObject)
 
-	fmt.Println(locationsObject[0].Index)
+	fmt.Println(locationsObject.Index[0].ID)
+	fmt.Println(locationsObject.Index[0].Loc[0])
+	fmt.Println(locationsObject.Index[0].Loc[1])
 
-	// for _, locations := range locationsObject {
-	// 	fmt.Println(locations)
-	// 	fmt.Println(locationsObject[0])
-	// }
+	for _, locationsValue := range locationsObject.Index {
+		fmt.Println(locationsValue)
+	}
 }
 
 // https://github.com/Alika03/groupie-tracker
