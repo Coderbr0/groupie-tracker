@@ -18,3 +18,5 @@ func main() {
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
+
+// https://tutorialedge.net/golang/creating-simple-web-server-with-golang/
