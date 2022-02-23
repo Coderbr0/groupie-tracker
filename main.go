@@ -34,10 +34,14 @@ type Locations struct {
 	Loc []string `json:"locations"`
 }
 
-// type Dates struct {
-// 	Id    int
-// 	Dates []string
-// }
+type IndexStructDates struct {
+	Index []Dates `json:"index"`
+}
+
+type Dates struct {
+	ID    int      `json:"id"`
+	Dates []string `json:"dates"`
+}
 
 // type Relations struct {
 // 	Id             int
@@ -108,6 +112,25 @@ func main() {
 
 	for _, locationsValue := range locationsObject.Index {
 		fmt.Println(locationsValue)
+	}
+
+	var datesObject IndexStructDates
+
+	response3, err := http.Get("https://groupietrackers.herokuapp.com/api/dates")
+	if err != nil {
+		fmt.Print(err.Error())
+		os.Exit(1)
+	}
+
+	responseData3, err := ioutil.ReadAll(response3.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(responseData3))
+	json.Unmarshal(responseData3, &datesObject)
+
+	for _, datesValue := range datesObject.Index {
+		fmt.Println(datesValue)
 	}
 }
 
