@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"main/server"
 	"net/http"
 	"os"
 )
@@ -48,7 +49,7 @@ type IndexStructRelation struct {
 }
 
 type Relation struct {
-	ID	int	`json:"id"`
+	ID             int                 `json:"id"`
 	DatesLocations map[string][]string `json:"datesLocations"`
 }
 
@@ -155,6 +156,7 @@ func main() {
 	for _, relationValue := range relationObject.Index {
 		fmt.Println(relationValue)
 	}
+	server.Server()
 }
 
 // https://github.com/Alika03/groupie-tracker

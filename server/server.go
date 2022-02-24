@@ -1,15 +1,14 @@
-package main
+package server
 
 import (
 	"fmt"
-	"html"
 	"log"
 	"net/http"
 )
 
-func server() {
+func Server() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
+		http.ServeFile(w, r, r.URL.Path[1:])
 	})
 
 	http.HandleFunc("/hi", func(w http.ResponseWriter, r *http.Request) {
@@ -18,5 +17,3 @@ func server() {
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
-
-// https://tutorialedge.net/golang/creating-simple-web-server-with-golang/
