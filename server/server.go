@@ -17,3 +17,30 @@ func Server() {
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
+
+
+/*
+1.
+package main
+
+import (
+        "net/http"
+)
+
+func main() {
+        http.Handle("/", http.FileServer(http.Dir("./static")))
+        http.ListenAndServe(":3000", nil)
+}
+
+2.
+package main
+
+import (
+    "log"
+    "net/http"
+)
+
+func main() {
+    log.Fatal(http.ListenAndServe(":8080", http.FileServer(http.Dir("."))))
+}
+*/
