@@ -1,7 +1,7 @@
 package server
 
 import (
-	"fmt"
+	// "fmt"
 	"log"
 	"net/http"
 )
@@ -9,10 +9,6 @@ import (
 func Server() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, r.URL.Path[1:])
-	})
-
-	http.HandleFunc("/hi", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hi")
 	})
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
@@ -43,4 +39,19 @@ import (
 func main() {
     log.Fatal(http.ListenAndServe(":8080", http.FileServer(http.Dir("."))))
 }
+
+3.
+func Server() {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, r.URL.Path[1:])
+	})
+
+	http.HandleFunc("/hi", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Hi")
+	})
+
+	log.Fatal(http.ListenAndServe(":8080", nil))
+}
+
+https://blog.logrocket.com/creating-a-web-server-with-golang/
 */
