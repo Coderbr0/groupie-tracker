@@ -7,13 +7,11 @@ import (
 )
 
 func Server() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, r.URL.Path[1:])
-	})
+	fileServer := http.FileServer(http.Dir("./template"))
+	http.Handle("/", fileServer)
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
-
 
 /*
 1.
